@@ -10,3 +10,5 @@ coverage/
 .idea/
 .vscode/
 *.swp
+*.tgz
+publish.bat

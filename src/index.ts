@@ -2,13 +2,13 @@
 import pc from "picocolors";
 import { runAudit, type AuditOptions } from "./commands/index.js";
 
-const HELP = `${pc.bold("mcp-doctor")} ${pc.gray("v0.1.0")}
+const HELP = `${pc.bold("mcp-trust")} ${pc.gray("v0.1.0")}
 
 Audit the MCP servers installed on your machine. Detects dead, dangerous,
 or fake servers before they hit production.
 
 ${pc.bold("Usage:")}
-  mcp-doctor [command] [options]
+  mcp-trust [command] [options]
 
 ${pc.bold("Commands:")}
   audit      Probe all configured MCP servers and report health (default)
@@ -23,10 +23,10 @@ ${pc.bold("Options:")}
   --no-health         Skip GitHub/npm health lookups (faster)
 
 ${pc.bold("Examples:")}
-  mcp-doctor
-  mcp-doctor audit --json
-  mcp-doctor audit --fail-on-dead
-  mcp-doctor audit --concurrency 1
+  mcp-trust
+  mcp-trust audit --json
+  mcp-trust audit --fail-on-dead
+  mcp-trust audit --concurrency 1
 `;
 
 function parseArgs(argv: string[]): { command: string; options: AuditOptions } {
@@ -60,7 +60,7 @@ function parseArgs(argv: string[]): { command: string; options: AuditOptions } {
       options.concurrency = n;
     } else {
       console.error(pc.red("error:") + " unknown argument: " + arg);
-      console.error("Run " + pc.cyan("mcp-doctor help") + " for usage");
+      console.error("Run " + pc.cyan("mcp-trust help") + " for usage");
       process.exit(2);
     }
   }
@@ -76,7 +76,7 @@ async function main(): Promise<void> {
     return;
   }
   if (command === "version") {
-    console.log("mcp-doctor v0.1.0");
+    console.log("mcp-trust v0.1.0");
     return;
   }
   if (command === "audit") {

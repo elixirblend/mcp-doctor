@@ -31,7 +31,7 @@ function shortStatus(status: string): string {
 
 export function renderReport(reports: ServerReport[]): void {
   console.log();
-  console.log(pc.bold(pc.magenta("mcp-doctor")) + pc.gray(" v0.1.0"));
+  console.log(pc.bold(pc.magenta("mcp-trust")) + pc.gray(" v0.1.0"));
   console.log(pc.gray("Auditing MCP servers installed on this machine"));
   console.log();
 

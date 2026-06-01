@@ -1,16 +1,18 @@
 {
-  "name": "mcp-doctor",
+  "name": "mcp-trust",
   "version": "0.1.0",
   "description": "Audit the MCP servers installed on your machine. Detect dead, dangerous, or fake servers before they hit production.",
   "type": "module",
-  "bin": {
-    "mcp-doctor": "./dist/index.js"
-  },
+  "bin": "bin/mcp-trust.js",
   "files": [
     "dist",
+    "bin",
     "README.md",
     "LICENSE"
   ],
+  "publishConfig": {
+    "bin": "bin/mcp-trust.js"
+  },
   "scripts": {
     "build": "tsc",
     "prepare": "tsc",

@@ -1,4 +1,4 @@
-# mcp-doctor
+# mcp-doctor (npm: mcp-trust)
 
 **The MCP ecosystem is sick. 60% of npm-published servers fail basic connectivity. 52% are abandoned.** `mcp-doctor` reads the MCP servers installed on your machine, probes each one with the protocol handshake, and tells you which are alive, dead, dangerous, or fake — before they hit production.
 
@@ -46,7 +46,7 @@ The MCP ecosystem crossed a threshold in 2025–2026 and never looked back. As o
 
 Every developer who uses Claude Desktop, Cursor, Codex, or Cline has between 4 and 12 MCP servers running. The median team has six of them in the "dead" or "lightly maintained" tier. They just don't know it yet, because the agent doesn't call the broken path every day.
 
-**`mcp-doctor` is the missing trust layer for the MCP ecosystem.** It runs locally, takes 5 seconds, and tells you what is actually alive.
+**`mcp-trust` is the missing trust layer for the MCP ecosystem.** It runs locally, takes 5 seconds, and tells you what is actually alive.
 
 ## What it checks
 
@@ -62,13 +62,13 @@ For every server it finds in your config, `mcp-doctor` runs:
 ## Install
 
 ```bash
-npx mcp-doctor
+npx mcp-trust
 ```
 
 Or install globally:
 
 ```bash
-npm install -g mcp-doctor
+npm install -g mcp-trust
 ```
 
 ## Usage
@@ -101,7 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npx mcp-doctor audit --fail-on-dead --json > mcp-report.json
+      - run: npx mcp-trust audit --fail-on-dead --json > mcp-report.json
       - uses: actions/upload-artifact@v4
         with:
           name: mcp-audit
