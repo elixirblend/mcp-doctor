@@ -108,7 +108,7 @@ export async function probeServer(config: ServerConfig): Promise<ProbedServer> {
     send(child, 1, "initialize", {
       protocolVersion: PROTOCOL_VERSION,
       capabilities: {},
-      clientInfo: { name: "mcp-doctor", version: "0.1.0" },
+      clientInfo: { name: "mcp-doctor", version: "0.2.0" },
     });
   });
 

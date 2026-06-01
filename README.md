@@ -7,7 +7,7 @@ npx mcp-doctor
 ```
 
 ```
-mcp-doctor v0.1.0
+mcp-doctor v0.2.0
 Auditing MCP servers installed on this machine
 
 [ALIVE] B github                  [claude]      14 tools, 4 no-arg, 47ms
@@ -79,6 +79,54 @@ mcp-doctor audit --json             # machine-readable output
 mcp-doctor audit --config-only      # list configured servers, don't probe
 mcp-doctor audit --fail-on-dead     # exit 1 if any server is dead (for CI)
 mcp-doctor audit --concurrency 8    # parallelize probes
+mcp-doctor install @scope/pkg       # verify an npm package, then add it to your config
+mcp-doctor serve                    # run as an MCP server exposing mcp_trust_audit
+```
+
+### `install` — add a server safely
+
+Resolves the package on npm, probes it live, then writes it to your config only if it passes. Refuses to add dead or F-graded servers unless you pass `--yes`. Defaults to Claude Desktop; pass `--client cursor` to target Cursor instead.
+
+```bash
+mcp-trust install @modelcontextprotocol/server-github
+mcp-trust install @modelcontextprotocol/server-github --client cursor
+mcp-trust install @scope/pkg --yes              # add even F-graded packages
+mcp-trust install @scope/pkg --dry-run          # probe + report, don't write
+mcp-trust install @scope/pkg --name my-alias    # override the entry name
+```
+
+If the requested name already exists in your config, the new entry is suffixed (`github-2`, `github-3`, …) instead of overwriting.
+
+### `serve` — use mcp-trust from inside an agent
+
+Runs mcp-trust as a Model Context Protocol server over stdio, exposing a single tool `mcp_trust_audit` that any MCP client (Claude Desktop, Cursor, Cline, your own agent) can call. The tool takes a list of server configurations, spawns each one, performs a real handshake, and returns a structured report.
+
+```jsonc
+// example call from any MCP client
+{
+  "name": "mcp_trust_audit",
+  "arguments": {
+    "servers": {
+      "github":    { "command": "npx", "args": ["-y", "@modelcontextprotocol/server-github"] },
+      "filesystem":{ "command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem", "/tmp"] }
+    },
+    "noHealth": false,
+    "concurrency": 4
+  }
+}
+```
+
+Add it to your client config the same way you'd add any other MCP server:
+
+```json
+{
+  "mcpServers": {
+    "mcp-trust": {
+      "command": "npx",
+      "args": ["-y", "mcp-trust", "serve"]
+    }
+  }
+}
 ```
 
 ### Config locations scanned
