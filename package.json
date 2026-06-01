@@ -1,0 +1,44 @@
+{
+  "name": "mcp-doctor",
+  "version": "0.1.0",
+  "description": "Audit the MCP servers installed on your machine. Detect dead, dangerous, or fake servers before they hit production.",
+  "type": "module",
+  "bin": {
+    "mcp-doctor": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "tsc",
+    "test": "node --test --import tsx test/*.test.ts",
+    "lint": "tsc --noEmit",
+    "start": "node --import tsx src/index.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "audit",
+    "security",
+    "cli",
+    "agent",
+    "claude",
+    "codex",
+    "cursor"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "picocolors": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.4.0"
+  }
+}
